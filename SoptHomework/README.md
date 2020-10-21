@@ -3,5 +3,10 @@
 ##### 1. SignUpActivity
 - 로그인 버튼 클릭
 
-  printf("%d",123)
+<pre>
+ok_btn.setOnClickListener {
+            if(edit_name.text.toString() == "" || edit_id.text.toString() == "" || edit_password.text.toString() == ""){
+                Toast.makeText(this, "빈칸이 존재합니다! 전부 입력해주세요!", Toast.LENGTH_SHORT).show()
+            }
+</pre>
   
