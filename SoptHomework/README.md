@@ -1,7 +1,7 @@
 ### 안드로이드 세미나 1주차 과제
 -------------------------------
-#### 1. MainActivity
-##### 회원가입 버튼 클릭
+### 1. MainActivity
+#### 회원가입 버튼 클릭
 
 <pre>
  signup_btn.setOnClickListener {
@@ -16,7 +16,7 @@ startActivityForResult를 이용해 Intent를 requestCode = 0 과 함께 보낸�
 
 회원가입버튼을 클릭하면 회원가입 화면이 호출된다.
 
-##### onActivityResult 함수
+#### onActivityResult 함수
 
 <pre>
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -43,7 +43,7 @@ MainActivity에서 requestCode = 0으로 보냈고, SignUpActivity에서 Activit
 Main 로그인 화면 창에 회원가입할때 적힌 id와 password를 화면에 띄어준다.
 
 
-##### SharedPreferences 객체 설정
+#### SharedPreferences 객체 설정
 
 <pre>
  val sharedPref: SharedPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE)
@@ -56,7 +56,7 @@ Main 로그인 화면 창에 회원가입할때 적힌 id와 password를 화면�
 
 그 다음 Edit 객체를 만들어준다. 정보를 SharedPreferences에 입력하는 것은 모두 Edit으로 진행된다. 
 
-##### SharedPreferences에 값 넣어주기
+#### SharedPreferences에 값 넣어주기
 <pre>
  sharedEdit.putString("id",id_edit.text.toString())
                 sharedEdit.putString("pw",password_edit.text.toString())
@@ -70,7 +70,7 @@ id_edit.text.toString() 는 id_edit라는 이름을 가진 EditText에서 값을
 putString을 해서 끝나는 것이 아니라 sharedEdit.apply()를 실행해야 모든 값이 넣어진다.
 
 
-##### SharedPreferences에서 값 가져오기
+#### SharedPreferences에서 값 가져오기
 <pre>
 if(sharedPref.getString("id","") != "" && sharedPref.getString("pw","") != ""){
             val intent = Intent(this,HomeActivity::class.java)
@@ -86,8 +86,8 @@ SharedPreferences에 넣은 값이 문자열이기 때문에 getString을 이용
 
 위의 코드는 등록한 ID와 Password값이 존재하다면  HomeActivity로 보내는 작업을 한다.
 
-#### 2. SignUpActivity
-##### 로그인 버튼 클릭
+### 2. SignUpActivity
+#### 로그인 버튼 클릭
 - EditText에 빈칸이 존재할경우 
 <pre>
 ok_btn.setOnClickListener {
