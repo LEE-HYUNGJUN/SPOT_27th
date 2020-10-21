@@ -1,4 +1,4 @@
-### 안드로이드 세미나 1주차 과제
+## 안드로이드 세미나 1주차 과제
 -------------------------------
 ### 1. MainActivity
 #### 회원가입 버튼 클릭
@@ -122,3 +122,12 @@ ok_btn.setOnClickListener {
 인텐트 객체를 생성한다. 생성된 Intent에 ID값과 Password값을 넣어준다.
 
 MainActivity에서 startActivityForResult()로 전송되었기에 setResult(Activity.RESULT_OK,intent)를 해준다. 
+
+
+### activity_sign_up.xml
+<pre>
+    android:hint="비밀번호를 입력하시오"
+        android:inputType="numberPassword"
+</pre>
+
+EditText에 hint와 inputType 속성을 넣어준다. 
