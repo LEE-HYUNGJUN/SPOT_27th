@@ -51,7 +51,7 @@ Main 로그인 화면 창에 회원가입할때 적힌 id와 password를 화면�
 
 <pre>
  val sharedPref: SharedPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE)
-        val sharedEdit= sharedPref.edit()
+ val sharedEdit= sharedPref.edit()
 </pre>
 
 로그인시에 id와 pw를 저장하기 위해 SharedPreferences를 이용한다.
@@ -66,8 +66,8 @@ Main 로그인 화면 창에 회원가입할때 적힌 id와 password를 화면�
 #### SharedPreferences에 값 넣어주기
 <pre>
  sharedEdit.putString("id",id_edit.text.toString())
-                sharedEdit.putString("pw",password_edit.text.toString())
-                sharedEdit.apply()
+ sharedEdit.putString("pw",password_edit.text.toString())
+ sharedEdit.apply()
 </pre>
 
 putString을 이용해 정보를 넣어준다. 넣어주는 값의 이름을 "id" 또는 "pw"로 설정하고, id_edit.text.toString()을 SharedPreferences 에 넣어준다.
@@ -128,7 +128,7 @@ MainActivity에서 startActivityForResult()로 전송되었기에 setResult(Acti
 ### 3. activity_sign_up.xml
 <pre>
     android:hint="비밀번호를 입력하시오"
-        android:inputType="numberPassword"
+    android:inputType="numberPassword"
 </pre>
 
 EditText에 hint와 inputType 속성을 넣어준다. 
