@@ -123,8 +123,9 @@ ok_btn.setOnClickListener {
 
 MainActivity에서 startActivityForResult()로 전송되었기에 setResult(Activity.RESULT_OK,intent)를 해준다. 
 
+<hr>
 
-### activity_sign_up.xml
+### 3. activity_sign_up.xml
 <pre>
     android:hint="비밀번호를 입력하시오"
         android:inputType="numberPassword"
