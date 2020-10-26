@@ -35,8 +35,8 @@ class ProfileAdapter (private val context : Context) : RecyclerView.Adapter<Prof
         this.itemClickListener = itemClickListener
     }
 
-    fun delete(position: Int){
+    /*fun delete(position: Int){
         data.removeAt(position)
         notifyDataSetChanged()
-    }
+    }*/
 }

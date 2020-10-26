@@ -7,9 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_recycler_view.*
-import java.util.*
 
 private lateinit var profileAdapter: ProfileAdapter
 
@@ -32,6 +30,8 @@ class RecyclerView : AppCompatActivity() {
         main_rcv.layoutManager = LinearLayoutManager(this)
         main_rcv.adapter = profileAdapter
 
+        val helper : ItemTouchHelper = itemTouchHelper(profileAdapter)
+        helper.attachToRecyclerView(main_rcv)
 
         profileAdapter.data = mutableListOf(
             ProfileData("이름","이형준","작성날짜","10월 22일","안녕하십니까! 저는 YB 이형준입니다!"),
@@ -61,34 +61,6 @@ class RecyclerView : AppCompatActivity() {
 
         })
 
-        val helper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.DOWN or ItemTouchHelper.UP,0
-        ){
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder
-            ): Boolean {
-                val draggedPosition = viewHolder.adapterPosition
-                val targetPosition = target.adapterPosition
-                Collections.swap(profileAdapter.data,draggedPosition,targetPosition)
-                profileAdapter.notifyItemMoved(draggedPosition,targetPosition)
-                profileAdapter.notifyDataSetChanged()
-                return false
-            }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-            }
-        })
-
-
-
-        val item = object : SwipeToDelete(this,0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,ItemTouchHelper.UP or
-        ItemTouchHelper.DOWN,0){
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                profileAdapter.delete(viewHolder.adapterPosition)
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(item)
-        itemTouchHelper.attachToRecyclerView(main_rcv)
-        helper.attachToRecyclerView(main_rcv)
     }
 }
