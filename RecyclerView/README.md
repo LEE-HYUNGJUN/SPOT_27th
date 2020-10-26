@@ -1,6 +1,6 @@
 ## Seminar 02. RecyclerView
 --------------------------------
-##### 1. ProfileData
+### 1. ProfileData
 <pre>
 data class ProfileData (
     var title : String,
@@ -12,7 +12,7 @@ data class ProfileData (
 </pre>
 필요로하는 데이터들을 변수로 가지고 있는 Data class를 만들어준다.
 
-##### 2. ProfileAdpater
+### 2. ProfileAdpater
 <pre>
 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_list,parent,false)
@@ -49,7 +49,7 @@ interface ItemClickListener{
 </pre>
 ItemClickLister가 동작할수 있게 설정해준다.
 
-##### 3.ProfileViewHolder
+### 3.ProfileViewHolder
 <pre>
 class ProfileViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
@@ -64,7 +64,7 @@ class ProfileViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 </pre>
 item_list에서 보여줄 view들을 findViewById로 가져온다. 각각 변수에 가져온 view를 넣어주고, TextView에 데이터를 넣기위해 onBind 함수안에 title.text = data.title을 해준다.
 
-##### 4. RecyclerView
+### 4. RecyclerView
 - GridLayout으로 설정하고 싶은 경우
 <pre>
 profileAdapter = ProfileAdapter(this)
@@ -119,7 +119,7 @@ helper.attachToRecyclerView(main_rcv)
 </pre>
 ItemTouchHelper함수에서 반한된 helper를 attachToRecyclerView()를 이용해 main_rcv라는 id를 가진 RecyclerView에 적용한다.
 
-##### 5.ItemTouchHelper
+### 5.ItemTouchHelper
 <pre>
 fun itemTouchHelper(adapter: ProfileAdapter) : ItemTouchHelper{
     val helper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
