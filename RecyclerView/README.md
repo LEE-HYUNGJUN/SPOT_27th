@@ -154,12 +154,14 @@ draggedPosition은 내가 클릭했을때의 position이고, targetPosition은 i
 adapter.notifyItemMoved(draggedPosition, targetPosition)를 이용해 서로 위치를 바꿔준다.
 <pre>
  override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val draggedPosition = viewHolder.adapterPosition
-            adapter.notifyItemRemoved(draggedPosition)
-            Log.d("tag2", adapter.data.toString())
+            val swipePosition = viewHolder.adapterPosition
+            adapter.data.removeAt(swipePosition)
+            adapter.notifyItemRemoved(swipePosition)
         }
 </pre>
-swipe의 경우는 draggedPosition만 필요하다. adapter.notifyItemRemoved(draggedPosition)를 이용하면 item을 삭제할 수 있다.
+swipe의 경우는 draggedPosition만 필요하다. swipe시에 데이터를 지워야 하므로 removeAt()을 이용한다 .
+
+후에 adapter.notifyItemRemoved(draggedPosition)를 이용하면 item을 삭제할 수 있다.
 
 
 
