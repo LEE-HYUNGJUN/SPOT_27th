@@ -37,6 +37,8 @@ Adapter는 3가지 함수(onCreateViewHolder, getItemCount, onBindViewHolder)를
 
 onCreateViewHolder는 ViewHolder가 생성되는 함수이다. 여기서 ViewHolder 객체를 만들어 주면 된다. view 객체는 목록이 디자인 되어있는 레이아웃이다. 즉 viewHolder는 그 레이아웃을 인자로 받아서 기억하고 있는것이다.
 
+onBindViewHolder함수는 생성된 뷰홀더에 데이터를 바인딩 해주는 함수이다. 또한 onBindViewHolder는 스크롤을 해서 데이터 바인딩이 새롭게 필요할 때 마다 호출된다.
+
 RecylerView의 item을 클릭했을때 이벤트를 발생시키기 위해 holder를 이용해 clickListner를 설정해준다. 
 
 <pre>
