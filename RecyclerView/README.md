@@ -35,6 +35,8 @@ override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
 </pre>
 Adapter는 3가지 함수(onCreateViewHolder, getItemCount, onBindViewHolder)를 꼭 오버라이드 해주어야한다.
 
+onCreateViewHolder는 ViewHolder가 생성되는 함수이다. 여기서 ViewHolder 객체를 만들어 주면 된다. view 객체는 목록이 디자인 되어있는 레이아웃이다. 즉 viewHolder는 그 레이아웃을 인자로 받아서 기억하고 있는것이다.
+
 RecylerView의 item을 클릭했을때 이벤트를 발생시키기 위해 holder를 이용해 clickListner를 설정해준다. 
 
 <pre>
