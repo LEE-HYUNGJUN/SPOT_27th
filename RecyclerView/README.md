@@ -2,13 +2,14 @@
 --------------------------------
 ### 1. ProfileData
 <pre>
+@Parcelize
 data class ProfileData (
     var title : String,
     var subTitle : String,
     var date_title : String,
     var date_subTitle : String,
     var contents : String
-)
+) : Parcelable
 </pre>
 필요로하는 데이터들을 변수로 가지고 있는 Data class를 만들어준다.
 
@@ -101,15 +102,9 @@ profileAdapter.data = mutableListOf(
 profileAdapter.setItemClickListener(object : ProfileAdapter.ItemClickListener{
             override fun onClick(view: View, position: Int) {
               Log.d("SSS","${position}번 리스트 선택")
-              val intent = Intent(baseContext,ResultActivity::class.java)
-
-              intent.putExtra("title", profileAdapter.data[position].title.toString())
-              intent.putExtra("subtitle",profileAdapter.data[position].subTitle.toString())
-              intent.putExtra("date_title", profileAdapter.data[position].date_title.toString())
-              intent.putExtra("date_subTitle", profileAdapter.data[position].date_subTitle.toString())
-              intent.putExtra("contents", profileAdapter.data[position].contents.toString())
-
-              startActivity(intent)
+               val intent = Intent(baseContext,ResultActivity::class.java)
+               intent.putExtra("data", profileAdapter.data[position])
+               startActivity(intent)
             }
 
         })
@@ -167,7 +162,24 @@ swipe의 경우는 draggedPosition만 필요하다. swipe시에 데이터를 지
 
 후에 adapter.notifyItemRemoved(draggedPosition)를 이용하면 item을 삭제할 수 있다.
 
+### 6.ResultActivity
+<pre>
+ override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_result)
 
+        var title : String
+        var subtitle : String
+
+        var intent = intent.getParcelableExtra<ProfileData>("data")
+        resulttitle_txt.text = intent.title
+        resultsubtitle_txt.text = intent.subTitle
+        date_title.text = intent.date_title
+        date_subtitle.text= intent.date_subTitle
+        contents.text = intent.contents
+    }
+</pre>
+getParcelableExtra를 이용해서 데이터를 받아온다
 
 
 
