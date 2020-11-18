@@ -2,6 +2,11 @@ package com.example.sopt_homework
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sopt_homework.Adapter.HomeViewPagerAdapter
+import com.example.sopt_homework.Adapter.MainViewPagerAdapter
+import com.example.sopt_homework.Fragment.PortFragment
+import com.example.sopt_homework.Fragment.ProfileFragment
+import com.example.sopt_homework.Fragment.SettingFragment
 import kotlinx.android.synthetic.main.activity_profile_view_pager.*
 import kotlin.properties.Delegates
 
@@ -14,7 +19,9 @@ class ProfileViewPager : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_view_pager)
 
-        mvp_Adapter = MainViewPagerAdapter(supportFragmentManager)
+        mvp_Adapter = MainViewPagerAdapter(
+            supportFragmentManager
+        )
         mvp_Adapter.fragments = listOf(
             ProfileFragment(),
             PortFragment(),
