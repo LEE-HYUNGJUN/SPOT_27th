@@ -17,8 +17,6 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
@@ -27,9 +25,7 @@ class ProfileFragment : Fragment() {
         var name = arguments?.getString("name").toString()
         tv_name.text=name
 
-        hvp_adapter = HomeViewPagerAdapter(
-            childFragmentManager
-        )
+        hvp_adapter = HomeViewPagerAdapter(childFragmentManager)
         hvp_adapter.fragments = listOf(
             InfoFragment(),
             OtherFragment()

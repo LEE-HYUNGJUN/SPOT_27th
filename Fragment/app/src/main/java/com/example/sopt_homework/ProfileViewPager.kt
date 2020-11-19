@@ -19,9 +19,7 @@ class ProfileViewPager : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_view_pager)
 
-        mvp_Adapter = MainViewPagerAdapter(
-            supportFragmentManager
-        )
+        mvp_Adapter = MainViewPagerAdapter(supportFragmentManager)
         mvp_Adapter.fragments = listOf(
             ProfileFragment(),
             PortFragment(),

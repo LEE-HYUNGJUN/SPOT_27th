@@ -20,9 +20,7 @@ class PortFragment : Fragment() {
 
     private lateinit var profileAdapter: ProfileAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true) //이 명령이 있어야 액티비티보다 프래그먼트의 메뉴가 우선된다.
         return inflater.inflate(R.layout.fragment_port, container, false)
@@ -31,13 +29,11 @@ class PortFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profileAdapter =
-            ProfileAdapter(view.context)
+        profileAdapter = ProfileAdapter(view.context)
         port_rcv.layoutManager = LinearLayoutManager(view.context)
         port_rcv.adapter = profileAdapter
 
-        val helper : ItemTouchHelper =
-            itemTouchHelper(profileAdapter)
+        val helper : ItemTouchHelper = itemTouchHelper(profileAdapter)
         helper.attachToRecyclerView(port_rcv)
 
         profileAdapter.data = mutableListOf(
