@@ -37,8 +37,7 @@ class RecyclerView : AppCompatActivity() {
         main_rcv.layoutManager = LinearLayoutManager(this)
         main_rcv.adapter = profileAdapter
 
-        val helper : ItemTouchHelper =
-            itemTouchHelper(profileAdapter)
+        val helper : ItemTouchHelper = itemTouchHelper(profileAdapter)
         helper.attachToRecyclerView(main_rcv)
 
         profileAdapter.data = mutableListOf(
@@ -109,24 +108,19 @@ class RecyclerView : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when(item.itemId){
             R.id.linear ->{
                 main_rcv.layoutManager = LinearLayoutManager(this)
-                profileAdapter.layoutitem =
-                    R.layout.item_list
+                profileAdapter.layoutitem = R.layout.item_list
                 //profileAdapter.changelayout(R.layout.item_list)
-                main_rcv.adapter =
-                    profileAdapter
+                main_rcv.adapter = profileAdapter
                 return true
             }
             R.id.grid ->{
                 main_rcv.layoutManager = GridLayoutManager(this,2)
-                profileAdapter.layoutitem =
-                    R.layout.list_grid
+                profileAdapter.layoutitem = R.layout.list_grid
                 //profileAdapter.changelayout(R.layout.list_grid)
-                main_rcv.adapter =
-                    profileAdapter
+                main_rcv.adapter = profileAdapter
                 return true
             }
             else ->{

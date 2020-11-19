@@ -113,7 +113,7 @@ if(sharedPref.getString("id","") != "" && sharedPref.getString("pw","") != ""){
 
 - #### 로그인 버튼 클릭
 
-  - ​	EditText에 빈칸이 존재할경우 
+  - 	EditText에 빈칸이 존재할경우 
 
     ```kotlin
     ok_btn.setOnClickListener {
@@ -126,7 +126,7 @@ if(sharedPref.getString("id","") != "" && sharedPref.getString("pw","") != ""){
 
     
 
-  - ​    EditText에 빈칸이 없는 경우 
+  -     EditText에 빈칸이 없는 경우 
 
 ```kotlin
  Toast.makeText(this, "회원가입완료!", Toast.LENGTH_LONG).show()
@@ -156,7 +156,7 @@ MainActivity에서 **startActivityForResult()** 로 전송되었기에 **setResu
 EditText에 hint와 inputType 속성을 넣어준다. 
 
 ------
-### Seminar 02. RecyclerView
+## Seminar 02. RecyclerView
 
 - ##### ProfileData
 
@@ -304,3 +304,53 @@ EditText에 hint와 inputType 속성을 넣어준다.
 
     
 
+- Menu 버튼 생성
+
+  - menu.xml 생성
+
+    ```kotlin
+    <menu xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:title="linear" android:id="@+id/linear"/>
+        <item android:title="grid" android:id="@+id/grid"/>
+    </menu>
+    ```
+
+  - onCreateOptionsMenu 오버라이드 
+
+    ```kotlin
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+            val inflater = menuInflater
+            inflater.inflate(R.menu.menu,menu)
+    
+            return super.onCreateOptionsMenu(menu)
+        }
+    ```
+
+    **onCreateOptionsMenu**는 Activity가 호출될때 호출되는 함수로 생명 주기내에서 단 한 번만 호출된다. 해당 함수에서는 MenuInflater를 통하여 menu xml 파일을 객체로 생성해준다.
+
+  - onOptionsItemSelected 오버라이드
+
+    ```kotlin
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+            when(item.itemId){
+                R.id.linear ->{
+                    main_rcv.layoutManager = LinearLayoutManager(this)
+                    profileAdapter.layoutitem = R.layout.item_list
+                    main_rcv.adapter = profileAdapter
+                    return true
+                }
+                R.id.grid ->{
+                    main_rcv.layoutManager = GridLayoutManager(this,2)
+                    profileAdapter.layoutitem = R.layout.list_grid
+                    main_rcv.adapter = profileAdapter
+                    return true
+                }
+                else ->{
+                    return super.onOptionsItemSelected(item)
+                }
+            }
+        }
+    ```
+
+    onOptionsItemSelected 함수에서는 특정 menu item을 클릭했을 때 호출되는 함수이다. when함수를 통해 item.itemId가 linear,grid 일 때로 나누어 레이아웃이 다르게 선택되도록 구현함.
