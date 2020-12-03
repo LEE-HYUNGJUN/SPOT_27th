@@ -50,26 +50,24 @@ class SettingFragment : Fragment() {
                 response.takeIf { it.isSuccessful }
                     ?.body()
                     ?.let {
-
-                        val firstname = it.data[0].first_name
                         dummyAdapter.data = mutableListOf(
                             DummyUser(
-                                it.data[0].first_name,it.data[0].last_name,it.data[0].email
+                                it.data[0].first_name,it.data[0].last_name,it.data[0].email,it.data[0].avatar
                             ),
                             DummyUser(
-                                it.data[1].first_name,it.data[1].last_name,it.data[1].email
+                                it.data[1].first_name,it.data[1].last_name,it.data[1].email,it.data[1].avatar
                             ),
                             DummyUser(
-                                it.data[2].first_name,it.data[2].last_name,it.data[2].email
+                                it.data[2].first_name,it.data[2].last_name,it.data[2].email,it.data[2].avatar
                             ),
                             DummyUser(
-                                it.data[3].first_name,it.data[3].last_name,it.data[3].email
+                                it.data[3].first_name,it.data[3].last_name,it.data[3].email,it.data[3].avatar
                             ),
                             DummyUser(
-                                it.data[4].first_name,it.data[4].last_name,it.data[4].email
+                                it.data[4].first_name,it.data[4].last_name,it.data[4].email,it.data[4].avatar
                             ),
                             DummyUser(
-                                it.data[5].first_name,it.data[5].last_name,it.data[5].email
+                                it.data[5].first_name,it.data[5].last_name,it.data[5].email,it.data[5].avatar
                             )
                         )
                         dummyAdapter.notifyDataSetChanged()

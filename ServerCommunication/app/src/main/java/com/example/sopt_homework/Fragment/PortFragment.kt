@@ -1,9 +1,12 @@
 package com.example.sopt_homework.Fragment
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -12,13 +15,23 @@ import com.example.sopt_homework.Adapter.ProfileAdapter
 import com.example.sopt_homework.ProfileData
 import com.example.sopt_homework.R
 import com.example.sopt_homework.Activity.ResultActivity
+import com.example.sopt_homework.Adapter.KakakAdapter
+import com.example.sopt_homework.KakaoData
+import com.example.sopt_homework.ResponseData.ResponseKakaoData
 import com.example.sopt_homework.Util.itemTouchHelper
+import com.example.sopt_homework.api.KakaoServiceimpl
+import kotlinx.android.synthetic.main.fragment_info.*
 import kotlinx.android.synthetic.main.fragment_port.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class PortFragment : Fragment() {
 
-    private lateinit var profileAdapter: ProfileAdapter
+    private lateinit var kakaoAdpater : KakakAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -28,102 +41,53 @@ class PortFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var text_search : String = et_search.text.toString()
 
-        profileAdapter = ProfileAdapter(view.context)
-        port_rcv.layoutManager = LinearLayoutManager(view.context)
-        port_rcv.adapter = profileAdapter
-
-        val helper : ItemTouchHelper = itemTouchHelper(profileAdapter)
-        helper.attachToRecyclerView(port_rcv)
-
-        profileAdapter.data = mutableListOf(
-            ProfileData(
-                "이름",
-                "이형준",
-                "작성날짜",
-                "10월 22일",
-                "안녕하십니까! 저는 YB 이형준입니다!"
-            ),
-            ProfileData(
-                "나이",
-                "27",
-                "작성날짜",
-                "10월 22일",
-                "94년생이라서 너무 슬픕니다ㅜㅜ"
-            ),
-            ProfileData(
-                "사는곳",
-                "인천",
-                "작성날짜",
-                "10월 22일",
-                "인천 청라국제도시에 살고 있습니다"
-            ),
-            ProfileData(
-                "취미",
-                "축구보기",
-                "작성날짜",
-                "10월 22일",
-                "첼시가 우승할듯ㅎ"
-            ),
-            ProfileData(
-                "좋아하는 축구선수",
-                "손흥민",
-                "작성날짜",
-                "10월 22일",
-                "NICE ONE SONNY!!"
-            ),
-            ProfileData(
-                "파트",
-                "안드로이드",
-                "작성날짜",
-                "10월 22일",
-                "안드로이드 재밌네"
-            )
-
-        )
-        profileAdapter.notifyDataSetChanged()
-
-        profileAdapter.setItemClickListener(object :
-            ProfileAdapter.ItemClickListener {
-            override fun onClick(view: View, position: Int) {
-                Log.d("SSS","${position}번 리스트 선택")
-                val intent = Intent(view.context,
-                    ResultActivity::class.java)
-                intent.putExtra("data", profileAdapter.data[position])
-                startActivity(intent)
-            }
-
-        })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        inflater.inflate(R.menu.menu,menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when(item.itemId){
-            R.id.linear ->{
-                port_rcv.layoutManager = LinearLayoutManager(view?.context)
-                profileAdapter.layoutitem =
-                    R.layout.item_list
-                //profileAdapter.changelayout(R.layout.item_list)
-                port_rcv.adapter = profileAdapter
-                return true
-            }
-            R.id.grid ->{
-                port_rcv.layoutManager = GridLayoutManager(view?.context,2)
-                profileAdapter.layoutitem =
-                    R.layout.list_grid
-                //profileAdapter.changelayout(R.layout.list_grid)
-                port_rcv.adapter = profileAdapter
-                return true
-            }
-            else ->{
-                return super.onOptionsItemSelected(item)
+        fun removeHTMLTag(str : String) : String {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(str, Html.FROM_HTML_MODE_LEGACY).toString()
+            } else {
+                Html.fromHtml(str).toString()
             }
         }
+
+        bt_search.setOnClickListener {
+            kakaoAdpater = KakakAdapter(view.context)
+            rcv_kakao.layoutManager = LinearLayoutManager(view.context)
+            rcv_kakao.adapter = kakaoAdpater
+
+            val call : Call<ResponseKakaoData> = KakaoServiceimpl.service.getWebSearch(et_search.text.toString())
+            call.enqueue(object : Callback<ResponseKakaoData>{
+                override fun onFailure(call: Call<ResponseKakaoData>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseKakaoData>,
+                    response: Response<ResponseKakaoData>
+                ) {
+                    response.takeIf { it.isSuccessful }
+                        ?.body()
+                        ?.let {
+                            kakaoAdpater.data = mutableListOf(
+                                KakaoData(removeHTMLTag(it.documents[0].title),removeHTMLTag(it.documents[0].datetime),removeHTMLTag(it.documents[0].contents)),
+                                KakaoData(removeHTMLTag(it.documents[1].title),removeHTMLTag(it.documents[1].datetime),removeHTMLTag(it.documents[1].contents)),
+                                KakaoData(removeHTMLTag(it.documents[2].title),removeHTMLTag(it.documents[2].datetime),removeHTMLTag(it.documents[2].contents)),
+                                KakaoData(removeHTMLTag(it.documents[3].title),removeHTMLTag(it.documents[3].datetime),removeHTMLTag(it.documents[3].contents)),
+                                KakaoData(removeHTMLTag(it.documents[4].title),removeHTMLTag(it.documents[4].datetime),removeHTMLTag(it.documents[4].contents))
+                            )
+                            kakaoAdpater.notifyDataSetChanged()
+                        }?:let {
+                        showError(response.errorBody())
+                    }
+                }
+                private fun showError(error: ResponseBody?) {
+                    val e = error ?: return
+                    val ob = JSONObject(e.string())
+                    Toast.makeText(view.context,ob.getString("message"), Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
     }
 }
