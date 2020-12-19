@@ -576,7 +576,11 @@ interface DummyService{
 
 ```kotlin
 interface KakaoService{
+<<<<<<< HEAD
     @Headers("Authorization:KakaoAK 310946a77e3b1f2d3f2ad957864a948f")
+=======
+    @Headers("Authorization:KakaoAK {RSET_API_KEY}")
+>>>>>>> main
     @GET("/v2/search/web")
     fun getWebSearch(
         @Query("query") web : String
