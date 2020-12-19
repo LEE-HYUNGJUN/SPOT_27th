@@ -537,3 +537,164 @@ xml에서 정해준 tl_profile(=TabLayout)을 가져와 **setupWithViewPager**�
 setupWithViewPager를 이용해 vp_profile(=ViewPager)이라는 TabLayout를 이용하기 위한 ViewPager를 연결한다.
 
 getTabAt(0)?.text = "Info" 를 이용해 각 Tab의 타이틀을 정해준다. 
+
+------
+
+# Seminar06. Server
+
+##### 결과화면
+
+<p float="left">
+            <img width="400" height="350" src="https://user-images.githubusercontent.com/72328789/101057770-c1bfb180-35cf-11eb-8774-281a14dbe256.PNG">
+            <img width="250" height="350" src="https://user-images.githubusercontent.com/72328789/101059079-3c3d0100-35d1-11eb-974a-6b041d47a47d.gif">
+            <img width ="250" height="350" src="https://user-images.githubusercontent.com/72328789/101059283-6f7f9000-35d1-11eb-80ed-d49554a86484.gif">
+</p>
+
+
+
+##### 1. Retrofit interface 설계, 싱글톤 실제 구현체
+
+```kotlin
+interface SignUpService{
+    @Headers("Content-Type:application/json")
+    @POST("/users/signup")
+    fun postSignUp(
+        @Body body : RequestSignUpData
+    ) : Call<ResponseSignUpData>
+}
+```
+
+```kotlin
+interface DummyService{
+    @Headers("Content-Type:application/json")
+    @POST("/api/users")
+    fun postDummy(
+        @Query("page") page : Int
+    ) : Call<ResponseDummyData>
+}
+```
+
+```kotlin
+interface KakaoService{
+    @Headers("Authorization:KakaoAK 310946a77e3b1f2d3f2ad957864a948f")
+    @GET("/v2/search/web")
+    fun getWebSearch(
+        @Query("query") web : String
+    ):Call<ResponseKakaoData>
+}
+```
+
+- 식별 URL을 interface로 설계한다. URL에 들어가는 변경가능한 경로라면 @Path , 쿼리 매개변수를 사용할 경우 @Query로 표현한다.
+- @POST 방식 외에도 @GET등이 있다.
+- 요청하는 데이터가 있다면 @Body를 통해 RequestBody를 설정할 수 있다.
+
+```kotlin
+object SignUpServiceimpl{
+    private const val BASE_URL = "http://15.164.83.210:3000"
+
+    private val retrofit : Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val service : SignUpService = retrofit.create(SignUpService::class.java)
+}
+```
+
+```kotlin
+object DummyServiceimpl {
+    private const val BASE_URL = "http://reqres.in"
+
+    private val retrofit : Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val service : DummyService = retrofit.create(DummyService::class.java)
+}
+```
+
+```kotlin
+object KakaoServiceimpl {
+    private const val BASE_URL = "https://dapi.kakao.com"
+
+    private val retrofit : Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val service : KakaoService = retrofit.create(KakaoService::class.java)
+}
+```
+
+- 싱글톤이란 객체는 하나만 생성하고 프로젝트 어디서나 사용할 수 있게 하는 디자인 패턴중 하나이다.
+- 싱글톤 객체로 사용하기 위해 object로 선언한다.
+- Retrofit 객체를 생성하여 interface 객체를 넘겨 service라는 실제 구현체를 생성한다. 
+
+##### 2. request data , response data 설계
+
+```kotlin
+data class RequestSignUpData(
+    val email : String,
+    val password : String,
+    val userName : String
+)
+```
+
+- 요청하는 데이터가 있다면 데이터 Type에 맞게 RequsetData를 생성해준다.
+
+```kotlin
+data class ResponseSignUpData(
+    val `data`: Data,
+    val message: String,
+    val status: Int,
+    val success: Boolean
+) {
+    data class Data(
+        val email: String,
+        val password: String,
+        val userName: String
+    )
+}
+```
+
+- ResponseData를 생성할 때 Json 객체의 키 값과 타입을 일치 시켜줘야 한다.
+
+
+
+##### 3. Call & Callback 등록하여 요청
+
+```kotlin
+val call : Call<ResponseKakaoData> = KakaoServiceimpl.service.getWebSearch(et_search.text.toString())
+            call.enqueue(object : Callback<ResponseKakaoData>{
+                override fun onFailure(call: Call<ResponseKakaoData>, t: Throwable) {
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseKakaoData>,
+                    response: Response<ResponseKakaoData>
+                ) {
+                    response.takeIf { it.isSuccessful }
+                        ?.body()
+                        ?.let { // 서버 연결 성공
+                            kakaoAdpater.data = mutableListOf( KakaoData(removeHTMLTag(it.documents[0].title),removeHTMLTag(it.documents[0].datetime),removeHTMLTag(it.documents[0].contents))
+                            )
+                            kakaoAdpater.notifyDataSetChanged()
+                        }?:let { // 연결 실패
+                        showError(response.errorBody())
+                    }
+                }
+                private fun showError(error: ResponseBody?) {
+                    val e = error ?: return
+                    val ob = JSONObject(e.string())
+                    Toast.makeText(view.context,ob.getString("message"), Toast.LENGTH_SHORT).show()
+                }
+            })
+```
+
+- Call<Type> 은 비동기적으로 Type을 받아오는 객체이다. Callback<Type>은 Type 객체를 받아왔을 때 프로그래머의 행동이다.
+- 먼저 call 객체를 받아온다. 싱글톤에서 만든 service라는 객체를 이용해서 interface에서 정의한 함수를 사용한다. 요청하는 데이터가 있다면 RequestData에 값을 넣어준다.
+- enqueue를 호출하여 실제 서버 통신을 비동기적으로 요청한다. 이 떄, onFailure와 onResponse를 오버라이드 해야한다.
+- 서버에 통신이 된다면 onResponse함수에 들어오게 되고, response.isSuccessful 인 경우는 응답이 성공된 경우 즉, Status Code가 200~300일 경우이다.
+- 응답이 제대로 이루어지지 않아 body()값이 없는 경우, showError()를 실행한다.
+

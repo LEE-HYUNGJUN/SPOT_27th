@@ -13,6 +13,8 @@ import com.example.sopt_homework.RequestData.RequestSignUpData
 import com.example.sopt_homework.ResponseData.ResponseSignUpData
 import com.example.sopt_homework.api.SignUpServiceimpl
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

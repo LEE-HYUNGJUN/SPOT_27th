@@ -3,13 +3,13 @@ package com.example.sopt_homework.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object DummyServiceimpl {
-    private const val BASE_URL = "http://reqres.in"
+object KakaoServiceimpl {
+    private const val BASE_URL = "https://dapi.kakao.com"
 
     private val retrofit : Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service : DummyService = retrofit.create(DummyService::class.java)
+    val service : KakaoService = retrofit.create(KakaoService::class.java)
 }

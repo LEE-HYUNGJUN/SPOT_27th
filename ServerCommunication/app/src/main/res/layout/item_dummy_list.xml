@@ -13,45 +13,34 @@
         android:id="@+id/fn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:textColor="#000000"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/notosans_bold"
-        android:text="성 :"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="이름 :"
+        android:textColor="#000000"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/ln"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/notosans_bold"
-        android:text="이름 :"
-        app:layout_constraintStart_toStartOf="@+id/fn"
-        app:layout_constraintTop_toBottomOf="@+id/fn" />
-
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/notosans_bold"
         android:text="이메일 :"
-        app:layout_constraintStart_toStartOf="@+id/ln"
-        app:layout_constraintTop_toBottomOf="@+id/ln" />
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/fn"
+        app:layout_constraintTop_toBottomOf="@+id/fn" />
 
     <TextView
         android:id="@+id/tv_firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#03A9F4"
-        android:fontFamily="@font/notosans_regular"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/notosans_regular"
         android:text="TextView"
+        android:textColor="#03A9F4"
         app:layout_constraintStart_toEndOf="@+id/fn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,21 +48,30 @@
         android:id="@+id/tv_lastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#03A9F4"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/notosans_regular"
-        android:layout_marginTop="20dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/tv_firstname"
-        app:layout_constraintTop_toBottomOf="@+id/tv_firstname" />
+        android:textColor="#03A9F4"
+        app:layout_constraintStart_toEndOf="@+id/tv_firstname"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_regular"
-        android:textColor="#03A9F4"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/notosans_regular"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/tv_lastname"
+        android:textColor="#03A9F4"
+        app:layout_constraintStart_toStartOf="@+id/tv_firstname"
         app:layout_constraintTop_toBottomOf="@+id/tv_lastname" />
+
+    <ImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
