@@ -23,6 +23,7 @@ fun itemTouchHelper(adapter: ProfileAdapter) : ItemTouchHelper{
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val draggedPosition = viewHolder.adapterPosition
+            adapter.data.removeAt(draggedPosition)
             adapter.notifyItemRemoved(draggedPosition)
             Log.d("tag2", adapter.data.toString())
         }

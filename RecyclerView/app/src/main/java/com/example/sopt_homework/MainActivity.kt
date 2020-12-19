@@ -36,8 +36,7 @@ class MainActivity : AppCompatActivity() {
                 sharedEdit.apply()
 
                /* val intent = Intent(this,HomeActivity::class.java)
-                startActivity(intent)*/
-                val intent = Intent(this,RecyclerView::class.java)
+                startActivity(intent)*/                val intent = Intent(this,RecyclerView::class.java)
                 startActivity(intent)
             }
         }
