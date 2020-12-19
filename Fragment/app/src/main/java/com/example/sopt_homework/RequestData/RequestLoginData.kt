@@ -1,4 +1,4 @@
-package com.example.sopt_homework
+package com.example.sopt_homework.RequestData
 
 class RequestLoginData (
     val email : String,

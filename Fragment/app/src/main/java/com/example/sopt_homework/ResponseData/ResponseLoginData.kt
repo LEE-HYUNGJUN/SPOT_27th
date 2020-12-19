@@ -1,8 +1,6 @@
-package com.example.sopt_homework
+package com.example.sopt_homework.ResponseData
 
-import android.provider.ContactsContract
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class ResponseLoginData(
     val data : Data,

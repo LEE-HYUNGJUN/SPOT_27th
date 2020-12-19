@@ -3,7 +3,7 @@ package com.example.sopt_homework.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object SampleServiceimpl{
+object SignUpServiceimpl{
     private const val BASE_URL = "http://15.164.83.210:3000"
 
     private val retrofit : Retrofit = Retrofit.Builder()
@@ -11,5 +11,5 @@ object SampleServiceimpl{
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service : SampleService = retrofit.create(SampleService::class.java)
+    val service : SignUpService = retrofit.create(SignUpService::class.java)
 }

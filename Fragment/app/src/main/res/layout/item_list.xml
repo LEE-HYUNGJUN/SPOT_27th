@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginTop="70dp"
+    android:layout_marginTop="30dp"
+    android:background="#ffffff"
     android:layout_height="130dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -19,10 +20,11 @@
         android:id="@+id/title_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:text="TextView"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#000000"
+        android:fontFamily="@font/notosans_bold"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="TextView"
-        android:textStyle="italic"
+        android:textColor="#2196F3"
+        android:fontFamily="@font/notosans_regular"
         app:layout_constraintStart_toStartOf="@+id/title_txt"
         app:layout_constraintTop_toBottomOf="@+id/title_txt" />
 
