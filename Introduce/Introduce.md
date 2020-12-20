@@ -34,7 +34,6 @@
       <img width="250" height="350" src="https://user-images.githubusercontent.com/72328789/102696683-53d3e500-4273-11eb-816f-2a164c29d8fb.gif"
   </p>
 
-- 
 
 - 앱 개발 실습
 
